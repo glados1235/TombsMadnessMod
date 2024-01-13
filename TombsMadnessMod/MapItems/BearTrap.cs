@@ -64,7 +64,7 @@ namespace TombsMadnessMod.MapItems
                TriggerTrapClientRpc(player);
            }
        }
-
+         
        [ClientRpc]
        public void TriggerTrapClientRpc(PlayerControllerB clientThatTriggerd, ClientRpcParams rpcParams = default)
        {

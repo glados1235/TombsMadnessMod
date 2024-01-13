@@ -111,3 +111,4 @@ D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Uni
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Services.Core.Internal.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Services.Core.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Profiling.Core.dll
+D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.sourcelink.json
