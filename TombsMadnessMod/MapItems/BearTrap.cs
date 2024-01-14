@@ -21,7 +21,7 @@ namespace TombsMadnessMod.MapItems
            audioSource = GetComponent<AudioSource>();
        }
        
-       public void OnTriggerEnter(Collider other)
+       public void OnTriggerStay(Collider other)
        {
            if (hasTriggered)
            {
@@ -33,22 +33,9 @@ namespace TombsMadnessMod.MapItems
                PlayerControllerB component = other.gameObject.GetComponent<PlayerControllerB>();
                if (!(component != GameNetworkManager.Instance.localPlayerController) && component != null && !component.isPlayerDead)
                {
-                  component.DamagePlayer(80, true, true, CauseOfDeath.Unknown);
-                  component.movementSpeed = 0.4f;
-                  TriggerTrapServerRpc();
-               }
-           }
-       }
-
-       public void OnTriggerExit(Collider other)
-       {
-           if (other.CompareTag("Player"))
-           {
-               PlayerControllerB component = other.gameObject.GetComponent<PlayerControllerB>();
-               if (!(component != GameNetworkManager.Instance.localPlayerController) && component != null && !component.isPlayerDead)
-               {
-                  animator.SetBool("IsTriggerd", false);
-                  component.movementSpeed = 4.6f;
+                    component.DamagePlayer(80, true, true, CauseOfDeath.Unknown);
+                    component.MakeCriticallyInjured(true);
+                    TriggerTrapServerRpc();
                }
            }
        }

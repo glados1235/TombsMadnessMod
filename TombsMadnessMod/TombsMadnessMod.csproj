@@ -88,7 +88,7 @@
 
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="netcode-patch &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies->'&quot;%(Identity)&quot;', ' ')"/>
+    <Exec Command="netcode-patch &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies->'&quot;%(Identity)&quot;', ' ')" />
     <Exec Command="xcopy &quot;D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\TombsMadnessMod.dll&quot; &quot;E:\SteamLibrary\steamapps\common\Lethal Company\BepInEx\plugins&quot; /Y" />
   </Target>
 

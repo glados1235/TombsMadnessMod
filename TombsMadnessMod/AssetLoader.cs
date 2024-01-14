@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HarmonyLib;
+using LethalLib.Modules;
+using System.Collections.Generic;
 using TombsMadnessMod.Tags;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,7 +19,7 @@ namespace TombsMadnessMod.Component
         public Dictionary<string, UnityEngine.Object> assetsDictionary = new Dictionary<string, UnityEngine.Object>();
 
          
-        public void Awake()   
+        public void Start()   
         {
             
             var bundle = AssetBundle.LoadFromMemory(TombsMadnessMod.Properties.Resources.tombsmadnessmodbundle);
@@ -31,7 +33,6 @@ namespace TombsMadnessMod.Component
                     {
                         if (i.regScrap) { RegisterScrap(i.itemRef, i.rarity, i.levelTypes); }
                         if (i.regShop) { RegisterShopItem(i.itemRef, i.cost); }
-                        NetworkManager.Singleton.AddNetworkPrefab(i.itemRef.spawnPrefab);
                         Destroy(i);  
                     }
 
@@ -43,7 +44,6 @@ namespace TombsMadnessMod.Component
                     if (asset.GetComponent<MapItem>() is MapItem m && m != null)
                     { 
                         LethalLib.Modules.MapObjects.RegisterMapObject(m.spawnableMapObject, m.levelTypes, null);
-                        NetworkManager.Singleton.AddNetworkPrefab(m.spawnableMapObject.prefabToSpawn);
                         Destroy(m);
                     }
                     if (asset.GetComponent<NetworkObject>() is NetworkObject obj && obj != null) 
