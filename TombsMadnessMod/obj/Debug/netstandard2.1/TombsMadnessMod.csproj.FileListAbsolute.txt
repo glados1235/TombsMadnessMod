@@ -1,6 +1,5 @@
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\TombsMadnessMod.deps.json
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\TombsMadnessMod.dll
-D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\TombsMadnessMod.pdb
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\0Harmony.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Assembly-CSharp.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\BepInEx.dll
@@ -90,7 +89,6 @@ D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\Tom
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.csproj.CopyComplete
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.dll
-D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.pdb
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\LethalCompanyInputUtils.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Netcode.Runtime.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\UnityEngine.CoreModule.dll
@@ -111,4 +109,3 @@ D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Uni
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Services.Core.Internal.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Services.Core.dll
 D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\bin\Debug\netstandard2.1\Unity.Profiling.Core.dll
-D:\Documents\GitHub\TombsMadnessMod\TombsMadnessMod\obj\Debug\netstandard2.1\TombsMadnessMod.sourcelink.json

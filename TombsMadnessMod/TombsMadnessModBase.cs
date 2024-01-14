@@ -112,8 +112,8 @@ namespace TombsMadnessMod
                         NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
                         if (networkObject != null)
                         {
-                            networkObject.Spawn();
-                            NetworkManager.Singleton.AddNetworkPrefab(prefab);
+                            
+                            networkObject.Spawn();   
                         }
                         else
                         {

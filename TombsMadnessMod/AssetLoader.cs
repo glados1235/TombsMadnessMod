@@ -31,6 +31,7 @@ namespace TombsMadnessMod.Component
                     {
                         if (i.regScrap) { RegisterScrap(i.itemRef, i.rarity, i.levelTypes); }
                         if (i.regShop) { RegisterShopItem(i.itemRef, i.cost); }
+                        NetworkManager.Singleton.AddNetworkPrefab(i.itemRef.spawnPrefab);
                         Destroy(i);  
                     }
 
@@ -42,6 +43,7 @@ namespace TombsMadnessMod.Component
                     if (asset.GetComponent<MapItem>() is MapItem m && m != null)
                     { 
                         LethalLib.Modules.MapObjects.RegisterMapObject(m.spawnableMapObject, m.levelTypes, null);
+                        NetworkManager.Singleton.AddNetworkPrefab(m.spawnableMapObject.prefabToSpawn);
                         Destroy(m);
                     }
                     if (asset.GetComponent<NetworkObject>() is NetworkObject obj && obj != null) 

@@ -10,7 +10,6 @@ namespace TombsMadnessMod.MapItems
    internal class BearTrap : NetworkBehaviour
    {
        private bool hasTriggered;
-       private PlayerControllerB localPlayerOnTrap;
        private Animator animator;
        private AudioSource audioSource;
 
@@ -36,7 +35,7 @@ namespace TombsMadnessMod.MapItems
                {
                   component.DamagePlayer(80, true, true, CauseOfDeath.Unknown);
                   component.movementSpeed = 0.4f;
-                  TriggerTrapServerRpc(component);
+                  TriggerTrapServerRpc();
                }
            }
        }
@@ -48,7 +47,6 @@ namespace TombsMadnessMod.MapItems
                PlayerControllerB component = other.gameObject.GetComponent<PlayerControllerB>();
                if (!(component != GameNetworkManager.Instance.localPlayerController) && component != null && !component.isPlayerDead)
                {
-                  localPlayerOnTrap = null;
                   animator.SetBool("IsTriggerd", false);
                   component.movementSpeed = 4.6f;
                }
@@ -56,20 +54,17 @@ namespace TombsMadnessMod.MapItems
        }
 
        [ServerRpc(RequireOwnership = false)]
-       public void TriggerTrapServerRpc(PlayerControllerB clientThatTriggerd, ServerRpcParams rpcParams = default)
+       public void TriggerTrapServerRpc(ServerRpcParams rpcParams = default)
        {
-           NetworkLog.LogInfoServer($"ServerRpc triggered by {clientThatTriggerd.playerUsername}");
            foreach (var player in RoundManager.Instance.playersManager.allPlayerScripts)
            {
-               TriggerTrapClientRpc(player);
+               TriggerTrapClientRpc();
            }
        }
          
        [ClientRpc]
-       public void TriggerTrapClientRpc(PlayerControllerB clientThatTriggerd, ClientRpcParams rpcParams = default)
+       public void TriggerTrapClientRpc(ClientRpcParams rpcParams = default)
        {
-           NetworkLog.LogInfoServer($"ClientRpc triggered for {clientThatTriggerd.playerUsername}");
-           localPlayerOnTrap = clientThatTriggerd;
            audioSource.PlayOneShot(trapCloseSFX);
            animator.SetBool("IsTriggerd", true);
            hasTriggered = true;
