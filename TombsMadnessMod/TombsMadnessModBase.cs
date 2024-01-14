@@ -30,7 +30,7 @@ namespace TombsMadnessMod
         public static ManualLogSource mls;
 
         public static GameObject assetLoader;
-
+            
         public static GameObject ModdedUI;
 
         public static GameObject systemGO;
@@ -104,10 +104,10 @@ namespace TombsMadnessMod
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 10000, StartOfRound.Instance.collidersAndRoomMaskAndDefault))
                 {
-                    GameObject prefab = assetLoader.GetComponent<AssetLoader>().GetAsset("assets/tombsmadnessmodbundle/beartrap/beartrap.prefab");
+                    GameObject prefab = assetLoader.GetComponent<AssetLoader>().GetAsset("assets/tombsmadnessmodbundle/noisehazards/glassnoisehazard/glassnoisehazard.prefab");
                     if (prefab != null)
                     {
-                        Quaternion rotation = Quaternion.FromToRotation(Vector3.down, hit.normal) * Quaternion.Euler(90f, 0f, 0f);
+                        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
                         GameObject spawnedObject = Instantiate(prefab, hit.point, rotation);
                         NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
                         if (networkObject != null)
