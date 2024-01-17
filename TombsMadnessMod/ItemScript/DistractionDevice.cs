@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TombsMadnessMod.Resources;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -11,22 +10,24 @@ namespace TombsMadnessMod.ItemScript
     public class DistractionDevice : Throwable
     { 
         public AudioClip beepAudio;
+
         public AudioSource audioSource;
 
         public float timer;
-        private float timerCount;
-        private bool isUsed;
-        private RoundManager roundManager;
-        private Animator animator;
 
+        private float timerCount;
+
+        private bool isUsed;
+
+        private Animator animator; 
 
         private int timesPlayedWithoutTurningOff;
+
         private float noiseInterval;
 
         public override void Start()
         {
             base.Start();
-            roundManager = FindObjectOfType<RoundManager>();
             gameObject.GetComponent<MeshRenderer>().enabled = true;
             animator = GetComponent<Animator>();
         }
@@ -61,6 +62,8 @@ namespace TombsMadnessMod.ItemScript
                 }
             }
         }
+
+
 
         public override void UseUpBatteries()
         {

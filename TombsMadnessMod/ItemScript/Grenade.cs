@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TombsMadnessMod.Resources;
 using UnityEngine;
 
 namespace TombsMadnessMod.ItemScript
@@ -106,6 +105,7 @@ namespace TombsMadnessMod.ItemScript
                 return;
             }
             Landmine.SpawnExplosion(this.transform.position, true, killRange, damageRange);
+            roundManager.PlayAudibleNoise(transform.position, 30, 5, 1, noiseIsInsideClosedShip: false, 5);
             hasExploded = true;
             audioSource.Stop();
             animator.SetBool("burning", false);

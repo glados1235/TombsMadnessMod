@@ -19,7 +19,7 @@ namespace TombsMadnessMod.Component
         public Dictionary<string, UnityEngine.Object> assetsDictionary = new Dictionary<string, UnityEngine.Object>();
 
          
-        public void Start()   
+        public void Awake()   
         {
             
             var bundle = AssetBundle.LoadFromMemory(TombsMadnessMod.Properties.Resources.tombsmadnessmodbundle);

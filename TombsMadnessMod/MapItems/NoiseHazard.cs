@@ -16,13 +16,15 @@ namespace TombsMadnessMod.MapItems
         private bool triggerd;
         public bool oneUse;
         public AudioClip[] triggerSFX;
+        public float noiseScale;
+        public float noiseLoudness;
 
         public void Start()
         {
             roundManager = FindObjectOfType<RoundManager>();
             audioSource = GetComponent<AudioSource>();
             animator = GetComponent<Animator>();
-            TombsMadnessModBase.mls.LogError("Watch your toes! could be some broken glass around");
+            TombsMadnessModBase.mls.LogMessage("Watch your toes! could be some broken glass around");
         }
 
         public void OnTriggerEnter(Collider collider)
@@ -35,7 +37,7 @@ namespace TombsMadnessMod.MapItems
                 {
                     TriggerSFXServerRpc();
                 }
-            }
+            }         
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -50,7 +52,7 @@ namespace TombsMadnessMod.MapItems
         public void TriggerSFXClientRpc(ClientRpcParams rpcParams = default)
         {
             audioSource.PlayOneShot(triggerSFX[Random.Range(0, triggerSFX.Length)]);
-            roundManager.PlayAudibleNoise(transform.position, 16f, 1f, 1, noiseIsInsideClosedShip: false, 5);
+            roundManager.PlayAudibleNoise(transform.position, noiseScale, noiseLoudness, 1, noiseIsInsideClosedShip: false, 5);
             if(animator != null) { animator.SetBool("Triggerd", true); }
             triggerd = true;
         }

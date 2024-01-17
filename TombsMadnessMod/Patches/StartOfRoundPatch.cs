@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using UnityEngine.AI;
 using UnityEngine;
 using TombsMadnessMod.Component;
-using TombsMadnessMod.Resources;
 using Unity.Netcode;
 
 namespace TombsMadnessMod.Patches
