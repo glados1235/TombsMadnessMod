@@ -1,6 +1,9 @@
-﻿using System;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,8 +13,6 @@ namespace TombsMadnessMod.ItemScript
     {
         public AudioClip[] breakAudios;
 
-        private AudioSource audioSource;
-
         public GameObject itemFragments;
 
         public float noiseScale;
@@ -20,18 +21,86 @@ namespace TombsMadnessMod.ItemScript
 
         public int itemDurability;
 
-        private Material material;
+        [HideInInspector] public bool wasPlacedOnSellPlatform;
+
+
+
+        private AudioSource audioSource;
+
+        private float animationFraction;
+
+        private float animationFractionLifetime;
+
+        private int initialValue;
+
+        private int initialDurability;
+
+        private Animator animator;
 
         private bool itemBroken;
 
         public override void Start()
         {
             base.Start(); 
-            material = gameObject.GetComponent<MeshRenderer>().material;
             audioSource = gameObject.GetComponent<AudioSource>();
+            animator = gameObject.GetComponent<Animator>();
+            animationFraction = 1f / itemDurability;
+
+            initialDurability = itemDurability;
+            initialValue = scrapValue;
         }
 
-        public void BreakItem()
+
+
+        public override void OnHitGround()
+        {
+            base.OnHitGround();
+
+            if (!wasPlacedOnSellPlatform)
+            {
+                if (Tools.CheckIsServer()) { DamageItemClientRpc(); if (isThrown) { BreakItemClientRpc(); } }
+                else { DamageRequestServerRpc(); if (isThrown) { BreakRequestServerRpc(); } }
+            }
+           
+
+            if (itemDurability <= 0 && !wasPlacedOnSellPlatform && !itemBroken)
+            {
+                if (Tools.CheckIsServer())
+                {
+                    BreakItemClientRpc();
+                }
+                else { BreakRequestServerRpc(); }
+            }
+        }
+
+
+        [ServerRpc(RequireOwnership = false)]
+        public void DamageRequestServerRpc()
+        {
+            DamageItemClientRpc();
+        }
+
+        [ClientRpc]
+        public void DamageItemClientRpc()
+        {
+            itemDurability -= 1;
+            scrapValue = initialValue * (itemDurability / initialDurability);
+            animationFractionLifetime += animationFraction;
+            animator.SetFloat("animationFraction", animationFractionLifetime);
+            NetworkLog.LogInfo("The Scrap value is " + scrapValue + "!");
+        }
+
+
+
+
+        [ServerRpc(RequireOwnership = false)]
+        public void BreakRequestServerRpc()
+        {
+            BreakItemClientRpc();
+        }
+
+        [ClientRpc]
+        public void BreakItemClientRpc()
         {
             itemBroken = true;
             mainObjectRenderer.enabled = false;
@@ -39,17 +108,6 @@ namespace TombsMadnessMod.ItemScript
             audioSource.PlayOneShot(breakAudios[Random.Range(0, breakAudios.Length)]);
             roundManager.PlayAudibleNoise(transform.position, noiseScale, noiseLoudness, 1, noiseIsInsideClosedShip: false, 5);
             gameObject.GetComponent<BoxCollider>().enabled = false;
-        }
-
-
-        public override void OnHitGround()
-        {
-            base.OnHitGround();
-            if (isThrown && !itemBroken || !playerHeldBy.isCrouching)
-            {
-                BreakItem();
-            }
-
         }
     }
 
@@ -79,7 +137,7 @@ namespace TombsMadnessMod.ItemScript
                     float t = timeElapsed / lerpDuration;
                     Vector3 horizontalPosition = Vector3.Lerp(startPosition, endPosition, t);
                     float height = startPosition.y + arcCurve.Evaluate(t) * (endPosition.y - startPosition.y);
-                    transform.position = new Vector3(horizontalPosition.x, height, horizontalPosition.z);
+                    transform.position = new Vector3(horizontalPosition.x, height + 0.5f, horizontalPosition.z);
                     if (enableCollision)
                     {
                         CheckCollision();

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TombsMadnessMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66100cdc4c94addcb43667813d0b37e13863467a")]
 [assembly: System.Reflection.AssemblyProductAttribute("TombsMadnessMod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TombsMadnessMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

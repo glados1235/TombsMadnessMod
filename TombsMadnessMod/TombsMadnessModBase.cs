@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 using Unity.Netcode;
 using System.Reflection;
+using System.Collections.Generic;
+using TombsMadnessMod.ItemScript;
 
 namespace TombsMadnessMod
 {
@@ -85,10 +87,11 @@ namespace TombsMadnessMod
 
             mls.LogInfo("TOMB IN DA SHIZOUCE :)");
             harmony.PatchAll(typeof(TombsMadnessModBase));
-            //harmony.PatchAll(typeof(PlayerControlerBPatch));
+            harmony.PatchAll(typeof(DepositItemsDeskPatch));
             harmony.PatchAll(typeof(StartOnPlayerControlerBeat));
 
         }
+
         public void SetupKeybindCallbacks()
         {
             KeyBindsInstance.SpawnKey.performed += OnSpawnKeyPressed;
@@ -137,4 +140,23 @@ namespace TombsMadnessMod
 
     }
 
+    [HarmonyPatch(typeof(DepositItemsDesk))]
+    internal class DepositItemsDeskPatch
+    {
+        [HarmonyPatch("PlaceItemOnCounter")]
+        [HarmonyPostfix]
+        static void FragileItemPatcher(ref List<GrabbableObject> ___itemsOnCounter)
+        {
+            foreach(var item in ___itemsOnCounter)
+            {
+                if(item.GetComponent<FragileItem>() is FragileItem obj && obj != null)
+                {
+                    TombsMadnessModBase.mls.LogWarning("Setting the bool for the item " + obj.name + " to true!");
+                    obj.wasPlacedOnSellPlatform = true;
+                    TombsMadnessModBase.mls.LogWarning("and the value is " + obj.wasPlacedOnSellPlatform);
+                }
+            }
+        }
+
+    }
 }
